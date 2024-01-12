@@ -325,8 +325,22 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let i = 1; i < arr.length; i += 1) {
+    let leftSum = 0;
+    for (let j = i - 1; j >= 0; j -= 1) {
+      leftSum += arr[j];
+    }
+
+    let rightSum = 0;
+    for (let k = i + 1; k < arr.length; k += 1) {
+      rightSum += arr[k];
+    }
+
+    if (leftSum === rightSum) return i;
+  }
+
+  return -1;
 }
 
 /**
@@ -350,8 +364,52 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const result = [];
+  const maxNumber = size * size;
+  let currentNum = 1;
+  let x = 0;
+  let y = size;
+
+  for (let i = 0; i < size; i += 1) {
+    result[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      result[i][j] = 0;
+    }
+  }
+
+  while (currentNum <= maxNumber) {
+    for (let i = x; i < y; i += 1) {
+      result[x][i] = currentNum;
+      currentNum += 1;
+    }
+
+    if (currentNum > maxNumber) break;
+
+    x += 1;
+
+    for (let i = x; i < y; i += 1) {
+      result[i][y - 1] = currentNum;
+      currentNum += 1;
+    }
+
+    if (currentNum > maxNumber) break;
+    y -= 1;
+
+    for (let i = y - 1; i >= x - 1; i -= 1) {
+      result[y][i] = currentNum;
+      currentNum += 1;
+    }
+
+    if (currentNum > maxNumber) break;
+
+    for (let i = y - 1; i >= x; i -= 1) {
+      result[i][x - 1] = currentNum;
+      currentNum += 1;
+    }
+  }
+
+  return result;
 }
 
 /**
