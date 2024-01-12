@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,13 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let max = a;
+
+  if (max < b) max = b;
+  if (max < c) max = c;
+
+  return max;
 }
 
 /**
@@ -60,8 +65,43 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  let { x, y } = queen;
+
+  if (queen.x === king.x || queen.y === king.y) return true;
+
+  while (x < 9 && x > 0 && y < 9 && y > 0) {
+    if (x === king.x && y === king.y) return true;
+    x += 1;
+    y += 1;
+  }
+
+  x = queen.x;
+  y = queen.y;
+  while (x < 9 && x > 0 && y < 9 && y > 0) {
+    if (x === king.x && y === king.y) return true;
+    x += 1;
+    y -= 1;
+  }
+
+  x = queen.x;
+  y = queen.y;
+  while (x < 9 && x > 0 && y < 9 && y > 0) {
+    if (x === king.x && y === king.y) return true;
+    x -= 1;
+    y += 1;
+  }
+
+  x = queen.x;
+  y = queen.y;
+
+  while (x < 9 && x > 0 && y < 9 && y > 0) {
+    if (x === king.x && y === king.y) return true;
+    x -= 1;
+    y -= 1;
+  }
+
+  return false;
 }
 
 /**
@@ -82,8 +122,16 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a + b < c || b + c < a || a + c < b) return false;
+
+  if (a === 0 || b === 0 || c === 0) return false;
+
+  if (a === b) return true;
+  if (a === c) return true;
+  if (c === b) return true;
+
+  return false;
 }
 
 /**
@@ -100,8 +148,24 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+
+function convertToRomanNumerals(num) {
+  const dictionary = [
+    { value: 10, numeral: 'X' },
+    { value: 9, numeral: 'IX' },
+    { value: 5, numeral: 'V' },
+    { value: 4, numeral: 'IV' },
+    { value: 1, numeral: 'I' },
+  ];
+  let digit = num;
+  let result = '';
+  for (let i = 0; i < dictionary.length; i += 1) {
+    while (digit >= dictionary[i].value) {
+      result += dictionary[i].numeral;
+      digit -= dictionary[i].value;
+    }
+  }
+  return result;
 }
 
 /**
